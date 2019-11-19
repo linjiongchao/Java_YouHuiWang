@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.springboot.YouHuiWang.Mapper.GoodsCardBagMapper">
+
+    <!--    添加卡包-->
+    <insert id="insertCardBag" parameterType="com.springboot.YouHuiWang.Pojo.GoodsCardBag">
+        insert ignore into CardBag (userId,goodsId) values (#{userId},#{goodsId})
+    </insert>
+
+    <!--    删除卡包 -->
+    <delete id="deleteCardBag" parameterType="com.springboot.YouHuiWang.Pojo.GoodsCardBag">
+        delete from CardBag where userId = #{userId} and goodsId = #{goodsId}
+    </delete>
+
+    <!--    查詢是否卡包-->
+    <select id="selectCardBag" parameterType="com.springboot.YouHuiWang.Pojo.GoodsCardBag" resultType="com.springboot.YouHuiWang.Pojo.GoodsCardBag">
+             select *from  CardBag where userId = #{userId} and goodsId = #{goodsId}
+    </select>
+
+    <!--    删除所有卡包-->
+    <delete id="deleteAllCardBag" parameterType="java.lang.Integer">
+        delete from CardBag where userId = #{userId}
+    </delete>
+
+    <!--    查询卡包-->
+    <select id="selectAllCardBag" parameterType="java.lang.Integer" resultType="com.springboot.YouHuiWang.Pojo.GoodsCardBag">
+        select *from  CardBag where userId = #{userId}
+    </select>
+</mapper>
+

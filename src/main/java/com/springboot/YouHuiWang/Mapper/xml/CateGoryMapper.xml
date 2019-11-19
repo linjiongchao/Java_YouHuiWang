@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.springboot.YouHuiWang.Mapper.CateGoryMapper">
+
+    <!--    批量插入一級分类-->
+    <insert id="insertSuperCateGory" parameterType="java.util.List" useGeneratedKeys="false">
+        insert ignore into supercategory (cid,cname,cpic) values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.cid},
+            #{item.cname},
+            #{item.cpic}
+            )
+        </foreach>
+    </insert>
+
+
+    <!--    批量插入二級分类-->
+    <insert id="insertSubCateGory" parameterType="java.util.List" useGeneratedKeys="false">
+        insert ignore into subcategory (subcid,subcname,scpic,cid) values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.subcid},
+            #{item.subcname},
+            #{item.scpic},
+            #{item.cid}
+            )
+        </foreach>
+    </insert>
+
+
+    <!--    查询超级分类-->
+    <select id="selectSuperCateGory" resultMap="CateGoryMap">
+        select super.cid,super.cname,super.cpic, sub.subcid,sub.subcname,sub.scpic
+        from supercategory super right join subcategory sub
+        on super.cid = sub.cid
+    </select>
+
+    <resultMap id="CateGoryMap" type="com.springboot.YouHuiWang.Pojo.SuperCategory">
+        <id column="cid" property="cid"></id>
+        <result column="cname" property="cname"></result>
+        <result column="cpic" property="cpic"></result>
+        <collection property="subcategories" ofType="com.springboot.YouHuiWang.Pojo.SubCategories">
+            <id column="subcid" property="subcid"></id>
+            <result column="subcname" property="subcname"></result>
+            <result column="scpic" property="scpic"></result>
+            <result column="cid" property="cid"></result>
+        </collection>
+    </resultMap>
+
+</mapper>

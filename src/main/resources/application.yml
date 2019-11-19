@@ -1,0 +1,56 @@
+# 端口配置
+server:
+  port: 8888
+
+spring:
+  # 数据库配置
+  datasource:
+    username: root
+    password: admin
+    url: jdbc:mysql://localhost:3306/youhuiwang?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC&allowMultiQueries=true
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+## mybatis 配置
+#mybatis:
+#  type-aliases-package: com.lin.interview.Pojo
+
+# 开启 debug 模式
+debug: false
+
+# 大淘客api
+appSecret: dcc3991f02886982e4e6c28b0cdf9c03
+appKey: 5d9f70f2045f9
+host: https://openapi.dataoke.com/api/
+
+# show sql
+logging:
+  level:
+    com:
+      springboot:
+        YouHuiWang:
+          Mapper: debug
+          Action: info
+          Config: info
+          Service: info
+          Task: info
+          Pojo: info
+
+
+
+mybatis-plus:
+  mapper-locations: classpath*:com/springboot/YouHuiWang/Mapper/xml/*Mapper.xml
+  typeAliasesPackage: com.springboot.YouHuiWang.Pojo
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+    jdbc-type-for-null: null
+  global-config:
+    id-type: 3
+    field-strategy: 2
+    db-column-underline: false
+    key-generator: com.baomidou.mybatisplus.incrementer.OracleKeyGenerator
+    logic-delete-value: 1
+    logic-not-delete-value: 0
+    sql-injector: com.baomidou.mybatisplus.mapper.LogicSqlInjector
+#   meta-object-handler: 1
+

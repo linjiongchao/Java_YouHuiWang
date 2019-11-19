@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.springboot.YouHuiWang.Mapper.SubCidTableMapper">
+
+    <!--    批量插入subcit-->
+    <insert id="insertAllSubCid" parameterType="java.util.List" useGeneratedKeys="false">
+        insert ignore into subcidtable (id,subcid) VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.id},
+            #{item.subcid}
+            )
+        </foreach>
+    </insert>
+
+    <!--    批量更新subcit-->
+    <update id="updateAllSubCidById">
+        <foreach collection="list" item="item" index="index" separator=";">
+            update ignore subcidtable set subcid = #{item.subcid} where id = #{item.id}
+        </foreach>
+    </update>
+
+    <!--    批量删除subcit-->
+    <delete id="deleteAllSubCidById" parameterType="java.util.List">
+        delete ignore from subcidtable where id in (
+        <foreach collection="list" item="item" index="index" separator=",">
+            #{item}
+        </foreach>
+        )
+    </delete>
+
+
+</mapper>

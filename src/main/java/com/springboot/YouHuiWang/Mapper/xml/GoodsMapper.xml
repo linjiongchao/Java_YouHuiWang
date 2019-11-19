@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.springboot.YouHuiWang.Mapper.GoodsMapper">
+
+
+    <!--    返回Goods单品详细信息 关联二级类目subcid-->
+    <resultMap id="GoodsDetailsMap" type="com.springboot.YouHuiWang.Pojo.Goods">
+
+        <id property="id" column="id"></id>
+        <result property="goodsId" column="goodsId"></result>
+        <result property="itemLink" column="itemLink"></result>
+        <result property="title" column="title"></result>
+        <result property="dtitle" column="dtitle"></result>
+        <result property="desc" column="desc"></result>
+
+
+        <result property="cid" column="cid"></result>
+        <result property="tbcid" column="tbcid"></result>
+        <result property="mainPic" column="mainPic"></result>
+
+
+        <result property="marketingMainPic" column="marketingMainPic"></result>
+        <result property="originalPrice" column="originalPrice"></result>
+        <result property="actualPrice" column="actualPrice"></result>
+        <result property="discounts" column="discounts"></result>
+
+
+        <result property="commissionType" column="commissionType"></result>
+        <result property="commissionRate" column="commissionRate"></result>
+        <result property="couponLink" column="couponLink"></result>
+        <result property="couponTotalNum" column="couponTotalNum"></result>
+
+
+        <result property="couponReceiveNum" column="couponReceiveNum"></result>
+        <result property="couponEndTime" column="couponEndTime"></result>
+        <result property="couponStartTime" column="couponStartTime"></result>
+        <result property="couponPrice" column="couponPrice"></result>
+
+
+        <result property="couponConditions" column="couponConditions"></result>
+        <result property="monthSales" column="monthSales"></result>
+        <result property="twoHoursSales" column="twoHoursSales"></result>
+        <result property="dailySales" column="dailySales"></result>
+
+
+        <result property="brand" column="brand"></result>
+        <result property="brandId" column="brandId"></result>
+        <result property="brandName" column="brandName"></result>
+        <result property="createTime" column="createTime"></result>
+        <result property="tchaoshi" column="tchaoshi"></result>
+        <result property="activityType" column="activityType"></result>
+
+
+        <result property="activityStartTime" column="activityStartTime"></result>
+        <result property="activityEndTime" column="activityEndTime"></result>
+        <result property="shopType" column="shopType"></result>
+        <result property="haitao" column="haitao"></result>
+        <result property="goldSellers" column="goldSellers"></result>
+
+
+        <result property="sellerId" column="sellerId"></result>
+        <result property="shopName" column="shopName"></result>
+        <result property="shopLevel" column="shopLevel"></result>
+        <result property="descScore" column="descScore"></result>
+        <result property="dsrScore" column="dsrScore"></result>
+        <result property="dsrPercent" column="dsrPercent"></result>
+
+
+        <result property="shipScore" column="shipScore"></result>
+        <result property="serviceScore" column="serviceScore"></result>
+        <result property="servicePercent" column="servicePercent"></result>
+        <result property="hotPush" column="hotPush"></result>
+        <result property="teamName" column="teamName"></result>
+        <result property="shipPercent" column="shipPercent"></result>
+
+        <collection property="subcid" column="subcid" ofType="java.lang.Integer"></collection>
+
+
+    </resultMap>
+
+
+    <!--    批量插入goods-->
+    <insert id="insertAllGoods" parameterType="java.util.List" useGeneratedKeys="false">
+        insert ignore into goods (id, goodsId, itemLink,title,dtitle,`desc`,cid,tbcid,mainPic,
+        marketingMainPic,originalPrice,actualPrice,discounts,
+        commissionType,commissionRate,couponLink,couponTotalNum,
+        couponReceiveNum,couponEndTime,couponStartTime,couponPrice,
+        couponConditions,monthSales,twoHoursSales,dailySales,
+        brand,brandId,brandName,createTime,tchaoshi,activityType,
+        activityStartTime,activityEndTime,shopType,haitao,goldSellers,
+        sellerId,shopName,shopLevel,descScore,dsrScore,dsrPercent,
+        shipScore,serviceScore,servicePercent,hotPush,teamName,shipPercent)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.id}, #{item.goodsId},#{item.itemLink},#{item.title},#{item.dtitle},#{item.desc},
+            #{item.cid},#{item.tbcid}, #{item.mainPic},
+            #{item.marketingMainPic}, #{item.originalPrice}, #{item.actualPrice},#{item.discounts},
+            #{item.commissionType}, #{item.commissionRate}, #{item.couponLink},#{item.couponTotalNum},
+            #{item.couponReceiveNum}, #{item.couponEndTime}, #{item.couponStartTime},#{item.couponPrice},
+            #{item.couponConditions}, #{item.monthSales}, #{item.twoHoursSales},#{item.dailySales},
+            #{item.brand}, #{item.brandId}, #{item.brandName}, #{item.createTime},#{item.tchaoshi},#{item.activityType},
+            #{item.activityStartTime}, #{item.activityEndTime}, #{item.shopType},#{item.haitao},#{item.goldSellers},
+            #{item.sellerId}, #{item.shopName}, #{item.shopLevel},#{item.descScore},#{item.dsrScore},#{item.dsrPercent},
+            #{item.shipScore}, #{item.serviceScore},
+            #{item.servicePercent},#{item.hotPush},#{item.teamName},#{item.shipPercent}
+            )
+        </foreach>
+    </insert>
+
+    <!--    批量更新goods-->
+    <update id="updateAllGoods" parameterType="java.util.List" useGeneratedKeys="false">
+
+        <foreach collection="list" item="item" index="index" separator=";">
+            update ignore goods
+            <set>
+                goodsId = #{item.goodsId},
+                originalPrice = #{item.originalPrice},
+                actualPrice = #{item.actualPrice},
+                couponPrice = #{item.couponPrice},
+                discounts = #{item.discounts},
+                commissionType = #{item.commissionType},
+                commissionRate = #{item.commissionRate},
+                couponReceiveNum = #{item.couponReceiveNum},
+                monthSales = #{item.monthSales},
+                twoHoursSales = #{item.twoHoursSales},
+                dailySales = #{item.dailySales},
+                hotPush = #{item.hotPush},
+            </set>
+            where id = #{item.id}
+
+        </foreach>
+
+    </update>
+
+    <!--    批量删除goods-->
+    <delete id="deleteAllGoodsById" parameterType="java.util.List">
+        delete ignore from goods where id in (
+        <foreach collection="list" item="item" index="index" separator=",">
+            #{item}
+        </foreach>
+        )
+    </delete>
+
+<!--    通过结束时间删除goods-->
+    <delete id="deleteAllGoodsByCouponEndTime" parameterType="java.lang.String">
+        delete from goods where couponEndTime <![CDATA[<=]]>   #{couponEndTime}
+    </delete>
+
+    <!--    获取商品当品信息-->
+    <select id="selectGoodsDetails" parameterType="com.springboot.YouHuiWang.Pojo.Goods" resultMap="GoodsDetailsMap">
+        select g.id, g.goodsId, g.itemLink,g.title,g.dtitle,g.`desc`,s.subcid,g.cid,g.tbcid,g.mainPic,
+        g.marketingMainPic,g.originalPrice,g.actualPrice,g.discounts,
+        g.commissionType,g.commissionRate,g.couponLink,g.couponTotalNum,
+        g.couponReceiveNum,g.couponEndTime,g.couponStartTime,g.couponPrice,
+        g.couponConditions,g.monthSales,g.twoHoursSales,g.dailySales,
+        g.brand,g.brandId,g.brandName,g.createTime,g.tchaoshi,g.activityType,
+        g.activityStartTime,g.activityEndTime,g.shopType,g.haitao,g.goldSellers,
+        g.sellerId,g.shopName,g.shopLevel,g.descScore,g.dsrScore,g.dsrPercent,
+        g.shipScore,g.serviceScore,g.servicePercent,g.hotPush,g.teamName,g.shipPercent
+        from subcidtable s right join goods g on s.id = g.id
+        <trim prefix="where" prefixOverrides="and">
+
+            <!-- 商品id匹配 -->
+            <if test="id != null">
+                and g.id = #{id}
+            </if>
+
+
+            <!-- 一级分类查询 -->
+            <if test="cid !=null">
+                and g.cid = #{cid}
+            </if>
+
+            <!-- 二级分类查询 -->
+            <if test="subcid != null and cid == null">
+                <foreach collection="subcid" item="item" index="index">
+                    and s.subcid = #{item}
+                </foreach>
+            </if>
+
+
+            <!-- 商品名称筛选 -->
+            <if test="title != null">
+                and Match(g.title) Against(#{title})
+            </if>
+
+
+
+        </trim>
+
+        <trim prefix="order by">
+
+
+            <!-- 卷后价 降序 -->
+            <if test="actualPrice  == -1">
+                g.actualPrice desc
+            </if>
+
+            <!-- 卷后价 升序 -->
+            <if test="actualPrice == 0">
+                g.actualPrice asc
+            </if>
+
+            <!-- 销量 降序 -->
+            <if test="monthSales  == -1">
+                g.monthSales desc
+
+            </if>
+
+            <!-- 销量 升序 -->
+            <if test="monthSales == 0">
+                g.monthSales asc
+            </if>
+
+            <!-- 月销量 降序 -->
+            <if test="monthSales  == -1">
+                g.monthSales desc
+
+            </if>
+
+            <!-- 月销量 升序 -->
+            <if test="monthSales == 0">
+                g.monthSales asc
+            </if>
+
+            <!-- 日销量 降序 -->
+            <if test="dailySales  == -1">
+                g.dailySales desc
+
+            </if>
+
+            <!-- 日销量 升序 -->
+            <if test="dailySales == 0">
+                g.dailySales asc
+            </if>
+
+            <!-- 两小时销量 降序 -->
+            <if test="twoHoursSales  == -1">
+                g.twoHoursSales desc
+
+            </if>
+
+            <!-- 两小时销量 升序 -->
+            <if test="twoHoursSales == 0">
+                g.twoHoursSales asc
+            </if>
+
+            <!-- 人气 领卷量 降序 -->
+            <if test="couponReceiveNum  == -1">
+                g.couponReceiveNum desc
+            </if>
+
+            <!-- 人气 领卷量 升序 -->
+            <if test="couponReceiveNum == 0">
+                g.couponReceiveNum asc
+            </if>
+        </trim>
+    </select>
+
+
+    <!--    获取商品信息列表-->
+    <select id="selectGoodsList" parameterType="com.springboot.YouHuiWang.Pojo.Goods" resultMap="GoodsListMap">
+        select g.id, g.goodsId, g.title,g.dtitle,g.mainPic,
+        g.originalPrice,g.actualPrice,g.couponPrice,g.monthSales,g.shopType,g.brand
+        from subcidtable s right join goods g on s.id = g.id
+        <trim prefix="where" prefixOverrides="and">
+
+            <!-- 商品id匹配 -->
+            <if test="id != null">
+                and g.id = #{id}
+            </if>
+
+            <!-- 店铺id匹配  -->
+            <if test="sellerId != null ">
+                and g.sellerId = #{sellerId}
+            </if>
+
+            <!-- 一级分类查询 -->
+            <if test="cid != null">
+                and g.cid = #{cid}
+            </if>
+
+            <!-- 二级分类查询 -->
+            <if test="subcid != null and cid == null">
+                <foreach collection="subcid" item="item" index="index">
+                    and s.subcid = #{item}
+                </foreach>
+            </if>
+
+
+            <!-- 商品名称筛选 -->
+            <if test="title != null">
+                and Match(g.title) Against(#{title})
+            </if>
+
+
+        </trim>
+
+        <trim prefix="order by">
+
+
+            <!-- 卷后价 降序 -->
+            <if test="actualPrice  == -1">
+                g.actualPrice desc
+            </if>
+
+            <!-- 卷后价 升序 -->
+            <if test="actualPrice == 0">
+                g.actualPrice asc
+            </if>
+
+            <!-- 销量 降序 -->
+            <if test="monthSales  == -1">
+                g.monthSales desc
+
+            </if>
+
+            <!-- 销量 升序 -->
+            <if test="monthSales == 0">
+                g.monthSales asc
+            </if>
+
+            <!-- 人气 领卷量 降序 -->
+            <if test="couponReceiveNum  == -1">
+                g.couponReceiveNum desc
+            </if>
+
+            <!-- 人气 领卷量 升序 -->
+            <if test="couponReceiveNum == 0">
+                g.couponReceiveNum asc
+            </if>
+        </trim>
+    </select>
+
+
+    <!--    获取商品列表信息 通过一组商品-->
+    <select id="selectGoodsListByGoodsIdList" parameterType="java.util.List" resultMap="GoodsListMap">
+
+        select g.id, g.goodsId, g.title,g.dtitle,g.mainPic,
+        g.originalPrice,g.actualPrice,g.couponPrice,g.monthSales,g.shopType,g.brand
+        from subcidtable s right join goods g on s.id = g.id
+        <where>
+            g.id in
+        (
+            <foreach collection="list" item="item" index="index" separator=",">
+                #{item}
+            </foreach>
+            )
+        </where>
+    </select>
+
+
+    <!--    返回Goods单品详细信息 关联二级类目subcid-->
+    <resultMap id="GoodsListMap" type="com.springboot.YouHuiWang.Pojo.GoodsList">
+
+        <id property="id" column="id"></id>
+        <result property="goodsId" column="goodsId"></result>
+        <result property="title" column="title"></result>
+        <result property="dtitle" column="dtitle"></result>
+
+
+        <result property="mainPic" column="mainPic"></result>
+
+
+        <result property="originalPrice" column="originalPrice"></result>
+        <result property="actualPrice" column="actualPrice"></result>
+
+
+        <result property="couponPrice" column="couponPrice"></result>
+
+
+        <result property="monthSales" column="monthSales"></result>
+
+
+        <result property="brand" column="brand"></result>
+
+        <result property="shopType" column="shopType"></result>
+
+
+    </resultMap>
+
+
+</mapper>

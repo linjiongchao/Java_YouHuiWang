@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.springboot.YouHuiWang.Mapper.GoodsCollectionMapper">
+
+    <!--    添加收藏-->
+    <insert id="insertCollection" parameterType="com.springboot.YouHuiWang.Pojo.GoodsCollection">
+        insert ignore into collection (userId,goodsId) values (#{userId},#{goodsId})
+    </insert>
+
+    <!--    删除收藏-->
+    <delete id="deleteCollection" parameterType="com.springboot.YouHuiWang.Pojo.GoodsCollection">
+        delete from collection where userId = #{userId} and goodsId = #{goodsId}
+    </delete>
+
+    <!--    查詢是否收藏-->
+    <select id="selectCollection" parameterType="com.springboot.YouHuiWang.Pojo.GoodsCollection" resultType="com.springboot.YouHuiWang.Pojo.GoodsCollection">
+             select *from  collection where userId = #{userId} and goodsId = #{goodsId}
+    </select>
+
+    <!--    删除所有收藏-->
+    <delete id="deleteAllCollection" parameterType="java.lang.Integer">
+        delete from collection where userId = #{userId}
+    </delete>
+
+    <!--    查询收藏-->
+    <select id="selectAllCollection" parameterType="java.lang.Integer" resultType="com.springboot.YouHuiWang.Pojo.GoodsCollection">
+        select *from  collection where userId = #{userId}
+    </select>
+</mapper>
+

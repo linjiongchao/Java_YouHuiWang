@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+
+    <!-- 表示从com包下开始扫描 -->
+    <constant name="struts.convention.package.locators.basePackage" value="com"></constant>
+    <!-- 表示从com包下开始加载注解 -->
+    <constant name="struts.convention.package.locators" value="com"></constant>
+    <!-- 表示struts的工厂类交给Spring实例 -->
+    <constant name="struts.objectFactory" value="spring"></constant>
+
+    <!-- 拦截后缀名 action,do  不指定拦截后缀 无法整合Swagger2 会被struts2认为是请求而拦截-->
+    <constant name="struts.action.extension" value="action,do"/>
+
+    <!--
+        SpringBoot集成struts2这个必须要配置
+        表示不把SpringBoot内置Tomcat的类加载器排除在外
+         默认是true 将类加载器排除了所以就算上面配置
+        如果这个没有配置就算运行不报错但是Action还是访问不了
+    -->
+    <constant name="struts.convention.exclude.parentClassLoader" value="false"></constant>
+
+
+    <!--    商品包-->
+    <package name="GoodsPackage" namespace="/goods" extends="json-default,struts-default">
+
+        <!-- 全局结果集，将response转换为json传到前台 -->
+        <global-results>
+            <result name="success" type="json">
+                <param name="root">response</param>
+            </result>
+        </global-results>
+
+        <!--        查询商品列表-->
+        <action name="selectGoodsList" class="com.springboot.YouHuiWang.Action.GoodsAction" method="selectGoodsList">
+        </action>
+
+        <!--        查询商品单品信息-->
+        <action name="getGoodsDetailById" class="com.springboot.YouHuiWang.Action.GoodsAction" method="getGoodsDetailById">
+        </action>
+
+    </package>
+
+    <!--分类包-->
+    <package name="CategoryPackage" namespace="/category" extends="json-default,struts-default">
+
+        <!-- 全局结果集，将response转换为json传到前台 -->
+        <global-results>
+            <result name="success" type="json">
+                <param name="root">response</param>
+            </result>
+        </global-results>
+
+        <!--        查询超级分类-->
+        <action name="selectSuperCateGory" class="com.springboot.YouHuiWang.Action.CategoryAction"
+                method="selectSuperCateGory">
+        </action>
+
+    </package>
+
+    <!--用户包-->
+    <package name="UserPackage" namespace="/user" extends="json-default,struts-default">
+
+        <!-- 全局结果集，将response转换为json传到前台 -->
+        <global-results>
+            <result name="success" type="json">
+                <param name="root">response</param>
+            </result>
+        </global-results>
+
+        <!--        登录-->
+        <action name="userLogin" class="com.springboot.YouHuiWang.Action.UserAction"
+                method="userLogin">
+        </action>
+
+        <!--        注册-->
+        <action name="userRegister" class="com.springboot.YouHuiWang.Action.UserAction"
+                method="userRegister">
+        </action>
+
+    </package>
+
+
+    <!--高佣包-->
+    <package name="PrivilegeLinkPackage" namespace="/privilegeLink" extends="json-default,struts-default">
+
+        <!-- 全局结果集，将response转换为json传到前台 -->
+        <global-results>
+            <result name="success" type="json">
+                <param name="root">response</param>
+            </result>
+        </global-results>
+
+        <!--        查询超级分类-->
+        <action name="getPrivilegeLink" class="com.springboot.YouHuiWang.Action.PrivilegeLinkAction" method="getPrivilegeLink">
+        </action>
+
+    </package>
+
+    <!--    收藏包-->
+    <package name="GoodsCollectionPackage" namespace="/goodsCollection" extends="json-default,struts-default">
+
+        <!-- 全局结果集，将response转换为json传到前台 -->
+        <global-results>
+            <result name="success" type="json">
+                <param name="root">response</param>
+            </result>
+        </global-results>
+
+        <!--        添加收藏-->
+        <action name="addCollection" class="com.springboot.YouHuiWang.Action.GoodsCollectionAction" method="addCollection">
+        </action>
+
+        <!--        删除收藏-->
+        <action name="deleteCollection" class="com.springboot.YouHuiWang.Action.GoodsCollectionAction" method="deleteCollection">
+        </action>
+        <!--        查看是否收藏-->
+        <action name="isCollection" class="com.springboot.YouHuiWang.Action.GoodsCollectionAction" method="isCollection">
+        </action>
+
+<!--        我的收藏-->
+        <action name="myCollection" class="com.springboot.YouHuiWang.Action.GoodsCollectionAction" method="myCollection">
+        </action>
+
+    </package>
+
+    <!--    卡包包-->
+    <package name="GoodsCardBagPackage" namespace="/goodsCardBag" extends="json-default,struts-default">
+
+        <!-- 全局结果集，将response转换为json传到前台 -->
+        <global-results>
+            <result name="success" type="json">
+                <param name="root">response</param>
+            </result>
+        </global-results>
+
+        <!--        添加卡包-->
+        <action name="addCardBag" class="com.springboot.YouHuiWang.Action.GoodsCardBagAction" method="addCardBag">
+        </action>
+
+        <!--        删除卡包-->
+        <action name="deleteCardBag" class="com.springboot.YouHuiWang.Action.GoodsCardBagAction" method="deleteCardBag">
+        </action>
+        <!--        查看是否卡包-->
+        <action name="isCardBag" class="com.springboot.YouHuiWang.Action.GoodsCardBagAction" method="isCardBag">
+        </action>
+
+        <!--        我的卡包-->
+        <action name="myCardBag" class="com.springboot.YouHuiWang.Action.GoodsCardBagAction" method="myCardBag">
+        </action>
+
+    </package>
+
+
+    <!--    搜索包-->
+    <package name="SearchPackage" namespace="/search" extends="json-default,struts-default">
+
+        <!-- 全局结果集，将response转换为json传到前台 -->
+        <global-results>
+            <result name="success" type="json">
+                <param name="root">response</param>
+            </result>
+        </global-results>
+
+        <!--        获取联想词-->
+        <action name="getSearchSuggestion" class="com.springboot.YouHuiWang.Action.SearchAction" method="getSearchSuggestion">
+        </action>
+
+        <!--        获取热搜-->
+        <action name="getHotSearch" class="com.springboot.YouHuiWang.Action.SearchAction" method="getHotSearch">
+        </action>
+
+    </package>
+
+</struts>
