@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import java.util.Map;
 
 @Controller
-@Api(value = "高佣接口控制类")
+@Api(tags = "高佣接口")
 public class PrivilegeLinkAction  extends MyAction{
 
     private String goodsId;
@@ -25,9 +25,7 @@ public class PrivilegeLinkAction  extends MyAction{
 
     @GetMapping(value="privilegeLink/getPrivilegeLink.action")
     @ApiOperation(value = "查询淘口令",notes = "")
-    @ApiImplicitParams(
-            @ApiImplicitParam(name="goodsId",value = "商品Id",dataType = "String")
-    )
+    @ApiImplicitParam(name = "goodsId", dataType = "string", value = "商品ID", paramType = "query" ,required = true)
     public String getPrivilegeLink() {
         if (goodsId!=null || goodsId.trim().length()!=0){
            Map info =  privilegeLinkService.getPrivilegeLink(goodsId);

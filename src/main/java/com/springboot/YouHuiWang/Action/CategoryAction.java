@@ -6,6 +6,7 @@ import com.springboot.YouHuiWang.Pojo.SuperCategory;
 import com.springboot.YouHuiWang.Service.CategoryService;
 import com.springboot.YouHuiWang.Util.CodeUtil;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import java.util.List;
 
 @Controller
-@Api(value = "分类控制类")
+@Api(tags = "超级分类")
 public class CategoryAction extends MyAction implements ModelDriven<SuperCategory> {
 
 
@@ -26,7 +27,7 @@ public class CategoryAction extends MyAction implements ModelDriven<SuperCategor
 
 
     @GetMapping(value="category/selectSuperCateGory.action")
-    @ApiOperation(value = "查询超级分类",notes = "")
+    @ApiOperation(value = "查询超级分类",notes = "查询超级分类")
     public String selectSuperCateGory(){
 
         //第一次获取为null时 从数据库中获取

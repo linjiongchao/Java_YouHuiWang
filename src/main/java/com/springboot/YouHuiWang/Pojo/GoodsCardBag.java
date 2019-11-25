@@ -1,8 +1,14 @@
 package com.springboot.YouHuiWang.Pojo;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+@ApiModel(value="GoodsCardBag",description="卡包")
 public class GoodsCardBag {
 
+    @ApiModelProperty(value="用户ID")
     private int userId;
+    @ApiModelProperty(value="商品ID")
     private int goodsId;
 
     public GoodsCardBag() {

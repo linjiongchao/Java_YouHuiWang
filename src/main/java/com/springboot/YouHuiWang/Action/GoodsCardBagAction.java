@@ -7,6 +7,8 @@ import com.springboot.YouHuiWang.Service.GoodsCardBagService;
 import com.springboot.YouHuiWang.Service.GoodsService;
 import com.springboot.YouHuiWang.Util.CodeUtil;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,7 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import java.util.List;
 
 @Controller
-@Api(value = "商品卡包类")
+@Api(tags = "商品卡包")
 public class GoodsCardBagAction extends MyAction implements ModelDriven<GoodsCardBag> {
 
     private GoodsCardBag goodsCardBag = new GoodsCardBag();
@@ -25,11 +27,13 @@ public class GoodsCardBagAction extends MyAction implements ModelDriven<GoodsCar
     @Autowired
     private GoodsCardBagService goodsCardBagService;
 
-    @Autowired
-    private GoodsService goodsService;
 
     @PostMapping(value="goodsCardBag/addCardBag.action")
     @ApiOperation(value = "添加卡包",notes = "")
+    @ApiImplicitParams({
+        @ApiImplicitParam(name = "userId", dataType = "int", value = "用户ID", paramType = "query",required = true),
+        @ApiImplicitParam(name = "goodsId", dataType = "int", value = "商品ID", paramType = "query",required = true)
+    })
     public String addCardBag(){
         if (goodsCardBagService.insertCardBag(goodsCardBag)!=0){
 
@@ -46,6 +50,10 @@ public class GoodsCardBagAction extends MyAction implements ModelDriven<GoodsCar
 
     @PostMapping(value="goodsCardBag/deleteCardBag.action")
     @ApiOperation(value = "删除收藏",notes = "")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", dataType = "int", value = "用户ID", paramType = "query",required = true),
+            @ApiImplicitParam(name = "goodsId", dataType = "int", value = "商品ID", paramType = "query",required = true)
+    })
     public String deleteCardBag(){
         if (goodsCardBagService.deleteCardBag(goodsCardBag) > 0){
             response.put("result", CodeUtil.success(null));
@@ -59,6 +67,10 @@ public class GoodsCardBagAction extends MyAction implements ModelDriven<GoodsCar
 
     @PostMapping(value="goodsCardBag/isCardBag.action")
     @ApiOperation(value = "是否卡包存在",notes = "")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", dataType = "int", value = "用户ID", paramType = "query",required = true),
+            @ApiImplicitParam(name = "goodsId", dataType = "int", value = "商品ID", paramType = "query",required = true)
+    })
     public String isCardBag(){
         System.out.println(goodsCardBag);
         GoodsCardBag goodsCardBagTemp = goodsCardBagService.selectCardBag(goodsCardBag);
@@ -77,6 +89,10 @@ public class GoodsCardBagAction extends MyAction implements ModelDriven<GoodsCar
 
     @GetMapping(value="goodsCardBag/myCardBag.action")
     @ApiOperation(value = "我的卡包",notes = "")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", dataType = "int", value = "用户ID", paramType = "query"),
+            @ApiImplicitParam(name = "goodsId", dataType = "int", value = "商品ID", paramType = "query")
+    })
     public String myCardBag(){
         List<GoodsList> myCardBagGoodsList = goodsCardBagService.selectAllCardBag(goodsCardBag.getUserId());
         if (myCardBagGoodsList!=null){

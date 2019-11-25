@@ -7,6 +7,8 @@ import com.springboot.YouHuiWang.Service.GoodsCollectionService;
 import com.springboot.YouHuiWang.Service.GoodsService;
 import com.springboot.YouHuiWang.Util.CodeUtil;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@Api(value = "商品收藏类")
+@Api(tags = "商品收藏")
 public class GoodsCollectionAction extends MyAction implements ModelDriven<GoodsCollection> {
 
     private GoodsCollection goodsCollection = new GoodsCollection();
@@ -31,6 +33,10 @@ public class GoodsCollectionAction extends MyAction implements ModelDriven<Goods
 
     @PostMapping(value="goodsCollection/addCollection.action")
     @ApiOperation(value = "添加收藏",notes = "")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", dataType = "int", value = "用户ID", paramType = "query",required = true),
+            @ApiImplicitParam(name = "goodsId", dataType = "int", value = "商品ID", paramType = "query",required = true)
+    })
     public String addCollection(){
         if (goodsCollectionService.insertCollection(goodsCollection)!=0){
 
@@ -47,6 +53,10 @@ public class GoodsCollectionAction extends MyAction implements ModelDriven<Goods
 
     @PostMapping(value="goodsCollection/deleteCollection.action")
     @ApiOperation(value = "删除收藏",notes = "")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", dataType = "int", value = "用户ID", paramType = "query",required = true),
+            @ApiImplicitParam(name = "goodsId", dataType = "int", value = "商品ID", paramType = "query",required = true)
+    })
     public String deleteCollection(){
         if (goodsCollectionService.deleteCollection(goodsCollection) > 0){
             response.put("result", CodeUtil.success(null));
@@ -60,6 +70,10 @@ public class GoodsCollectionAction extends MyAction implements ModelDriven<Goods
 
     @PostMapping(value="goodsCollection/isCollection.action")
     @ApiOperation(value = "是否收藏",notes = "")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", dataType = "int", value = "用户ID", paramType = "query",required = true),
+            @ApiImplicitParam(name = "goodsId", dataType = "int", value = "商品ID", paramType = "query",required = true)
+    })
     public String isCollection(){
         System.out.println(goodsCollection);
         GoodsCollection goodsCollectionTemp = goodsCollectionService.selectCollection(goodsCollection);
@@ -78,6 +92,10 @@ public class GoodsCollectionAction extends MyAction implements ModelDriven<Goods
 
     @GetMapping(value="goodsCollection/myCollection.action")
     @ApiOperation(value = "我的收藏",notes = "")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", dataType = "int", value = "用户ID", paramType = "query",required = true),
+            @ApiImplicitParam(name = "goodsId", dataType = "int", value = "商品ID", paramType = "query",required = true)
+    })
     public String myCollection(){
         List<GoodsList> myCollectionGoodsList = goodsCollectionService.selectAllCollection(goodsCollection.getUserId());
         if (myCollectionGoodsList!=null){

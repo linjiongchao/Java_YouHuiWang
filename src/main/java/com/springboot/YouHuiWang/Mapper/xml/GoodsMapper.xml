@@ -158,104 +158,94 @@
         g.activityStartTime,g.activityEndTime,g.shopType,g.haitao,g.goldSellers,
         g.sellerId,g.shopName,g.shopLevel,g.descScore,g.dsrScore,g.dsrPercent,
         g.shipScore,g.serviceScore,g.servicePercent,g.hotPush,g.teamName,g.shipPercent
-        from subcidtable s right join goods g on s.id = g.id
-        <trim prefix="where" prefixOverrides="and">
+        from subcidtable s right join goods g on s.id = g.id where g.id = #{id}
+<!--        <trim prefix="where" prefixOverrides="and">-->
 
-            <!-- 商品id匹配 -->
-            <if test="id != null">
-                and g.id = #{id}
-            </if>
-
-
-            <!-- 一级分类查询 -->
-            <if test="cid !=null">
-                and g.cid = #{cid}
-            </if>
-
-            <!-- 二级分类查询 -->
-            <if test="subcid != null and cid == null">
-                <foreach collection="subcid" item="item" index="index">
-                    and s.subcid = #{item}
-                </foreach>
-            </if>
+<!--            &lt;!&ndash; 商品id匹配 &ndash;&gt;-->
+<!--            <if test="id != null">-->
+<!--                and g.id = #{id}-->
+<!--            </if>-->
 
 
-            <!-- 商品名称筛选 -->
-            <if test="title != null">
-                and Match(g.title) Against(#{title})
-            </if>
+<!--            &lt;!&ndash; 一级分类查询 &ndash;&gt;-->
+<!--            <if test="cid !=null">-->
+<!--                and g.cid = #{cid}-->
+<!--            </if>-->
+
+<!--            &lt;!&ndash; 二级分类查询 &ndash;&gt;-->
+<!--            <if test="subcid != null and cid == null">-->
+<!--                <foreach collection="subcid" item="item" index="index">-->
+<!--                    and s.subcid = #{item}-->
+<!--                </foreach>-->
+<!--            </if>-->
+
+
+<!--            &lt;!&ndash; 商品名称筛选 &ndash;&gt;-->
+<!--            <if test="title != null">-->
+<!--                and Match(g.title) Against(#{title})-->
+<!--            </if>-->
 
 
 
-        </trim>
+<!--        </trim>-->
 
-        <trim prefix="order by">
+<!--        <trim prefix="order by">-->
 
 
-            <!-- 卷后价 降序 -->
-            <if test="actualPrice  == -1">
-                g.actualPrice desc
-            </if>
+<!--            &lt;!&ndash; 卷后价 降序 &ndash;&gt;-->
+<!--            <if test="actualPrice  == -1">-->
+<!--                g.actualPrice desc-->
+<!--            </if>-->
 
-            <!-- 卷后价 升序 -->
-            <if test="actualPrice == 0">
-                g.actualPrice asc
-            </if>
+<!--            &lt;!&ndash; 卷后价 升序 &ndash;&gt;-->
+<!--            <if test="actualPrice == 0">-->
+<!--                g.actualPrice asc-->
+<!--            </if>-->
 
-            <!-- 销量 降序 -->
-            <if test="monthSales  == -1">
-                g.monthSales desc
 
-            </if>
+<!--            &lt;!&ndash; 月销量 降序 &ndash;&gt;-->
+<!--            <if test="monthSales  == -1">-->
+<!--                g.monthSales desc-->
 
-            <!-- 销量 升序 -->
-            <if test="monthSales == 0">
-                g.monthSales asc
-            </if>
+<!--            </if>-->
 
-            <!-- 月销量 降序 -->
-            <if test="monthSales  == -1">
-                g.monthSales desc
+<!--            &lt;!&ndash; 月销量 升序 &ndash;&gt;-->
+<!--            <if test="monthSales == 0">-->
+<!--                g.monthSales asc-->
+<!--            </if>-->
 
-            </if>
+<!--            &lt;!&ndash; 日销量 降序 &ndash;&gt;-->
+<!--            <if test="dailySales  == -1">-->
+<!--                g.dailySales desc-->
 
-            <!-- 月销量 升序 -->
-            <if test="monthSales == 0">
-                g.monthSales asc
-            </if>
+<!--            </if>-->
 
-            <!-- 日销量 降序 -->
-            <if test="dailySales  == -1">
-                g.dailySales desc
+<!--            &lt;!&ndash; 日销量 升序 &ndash;&gt;-->
+<!--            <if test="dailySales == 0">-->
+<!--                g.dailySales asc-->
+<!--            </if>-->
 
-            </if>
+<!--            &lt;!&ndash; 两小时销量 降序 &ndash;&gt;-->
+<!--            <if test="twoHoursSales  == -1">-->
+<!--                g.twoHoursSales desc-->
 
-            <!-- 日销量 升序 -->
-            <if test="dailySales == 0">
-                g.dailySales asc
-            </if>
+<!--            </if>-->
 
-            <!-- 两小时销量 降序 -->
-            <if test="twoHoursSales  == -1">
-                g.twoHoursSales desc
+<!--            &lt;!&ndash; 两小时销量 升序 &ndash;&gt;-->
+<!--            <if test="twoHoursSales == 0">-->
+<!--                g.twoHoursSales asc-->
+<!--            </if>-->
 
-            </if>
+<!--            &lt;!&ndash; 人气 领卷量 降序 &ndash;&gt;-->
+<!--            <if test="couponReceiveNum  == -1">-->
+<!--                g.couponReceiveNum desc-->
+<!--            </if>-->
 
-            <!-- 两小时销量 升序 -->
-            <if test="twoHoursSales == 0">
-                g.twoHoursSales asc
-            </if>
-
-            <!-- 人气 领卷量 降序 -->
-            <if test="couponReceiveNum  == -1">
-                g.couponReceiveNum desc
-            </if>
-
-            <!-- 人气 领卷量 升序 -->
-            <if test="couponReceiveNum == 0">
-                g.couponReceiveNum asc
-            </if>
-        </trim>
+<!--            &lt;!&ndash; 人气 领卷量 升序 &ndash;&gt;-->
+<!--            <if test="couponReceiveNum == 0">-->
+<!--                g.couponReceiveNum asc-->
+<!--            </if>-->
+<!--        </trim>-->
     </select>
 
 
@@ -310,15 +300,37 @@
                 g.actualPrice asc
             </if>
 
-            <!-- 销量 降序 -->
+            <!-- 月销量 降序 -->
             <if test="monthSales  == -1">
                 g.monthSales desc
 
             </if>
 
-            <!-- 销量 升序 -->
+            <!-- 月销量 升序 -->
             <if test="monthSales == 0">
                 g.monthSales asc
+            </if>
+
+            <!-- 日销量 降序 -->
+            <if test="dailySales  == -1">
+                g.dailySales desc
+
+            </if>
+
+            <!-- 日销量 升序 -->
+            <if test="dailySales == 0">
+                g.dailySales asc
+            </if>
+
+            <!-- 两小时销量 降序 -->
+            <if test="twoHoursSales  == -1">
+                g.twoHoursSales desc
+
+            </if>
+
+            <!-- 两小时销量 升序 -->
+            <if test="twoHoursSales == 0">
+                g.twoHoursSales asc
             </if>
 
             <!-- 人气 领卷量 降序 -->

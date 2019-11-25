@@ -96,11 +96,6 @@ public class Task {
         String startTime = simpleDateFormat.format(date);
         System.out.println("删除数据库失效商品开始时间:" + startTime);
 
-//        Calendar calendar = Calendar.getInstance();
-//        calendar.setTime(date);
-//        calendar.add(Calendar.DAY_OF_MONTH, -1);
-//        Date couponEndTimeDate = calendar.getTime();
-//        System.out.println(simpleDateFormat.format(date));
         int totalSize = goodsService.deleteAllGoodsByCouponEndTime(startTime);
 
         System.out.println("删除数据库失效商品条数:" + simpleDateFormat.format(new Date()));
