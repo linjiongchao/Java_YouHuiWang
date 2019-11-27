@@ -46,7 +46,7 @@ public class GoodsCardBagServiceImpl implements GoodsCardBagService {
     public List<GoodsList> selectAllCardBag(Integer userId){
 
         List<GoodsCardBag> goodsCardBags = goodsCardBagMapper.selectAllCardBag(userId);
-        if (goodsCardBags!=null){
+        if (goodsCardBags!=null && goodsCardBags.size()!=0){
             //添加GoodsListId
             List<Integer> goodsIdList = new ArrayList<>();
             for (GoodsCardBag goodsCardBag: goodsCardBags){
@@ -54,9 +54,11 @@ public class GoodsCardBagServiceImpl implements GoodsCardBagService {
             }
 
             //发给GoodsService查询商品
-            List<GoodsList> myCardBagGoodsList = goodsMapper.selectGoodsListByGoodsIdList(goodsIdList);
-            if (myCardBagGoodsList.size()!=0){
-                return myCardBagGoodsList;
+            if (goodsIdList!=null && goodsIdList.size()!=0) {
+                List<GoodsList> myCardBagGoodsList = goodsMapper.selectGoodsListByGoodsIdList(goodsIdList);
+                if (myCardBagGoodsList != null && myCardBagGoodsList.size() != 0) {
+                    return myCardBagGoodsList;
+                }
             }
         }
         return null;

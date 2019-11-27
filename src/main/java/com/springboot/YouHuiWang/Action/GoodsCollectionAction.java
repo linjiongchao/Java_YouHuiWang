@@ -94,10 +94,10 @@ public class GoodsCollectionAction extends MyAction implements ModelDriven<Goods
     @ApiOperation(value = "我的收藏",notes = "")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "userId", dataType = "int", value = "用户ID", paramType = "query",required = true),
-            @ApiImplicitParam(name = "goodsId", dataType = "int", value = "商品ID", paramType = "query",required = true)
     })
     public String myCollection(){
         List<GoodsList> myCollectionGoodsList = goodsCollectionService.selectAllCollection(goodsCollection.getUserId());
+        System.out.println("myCollectionGoodsList：" + myCollectionGoodsList);
         if (myCollectionGoodsList!=null){
             response.put("result", CodeUtil.success(myCollectionGoodsList));
         }else{

@@ -46,17 +46,20 @@ public class GoodsCollectionServiceImpl implements GoodsCollectionService {
     public List<GoodsList> selectAllCollection(Integer userId){
 
         List<GoodsCollection> goodsCollections = goodsCollectionMapper.selectAllCollection(userId);
-        if (goodsCollections!=null){
+        if (goodsCollections!=null&& goodsCollections.size()!=0){
             //添加GoodsListId
             List<Integer> goodsIdList = new ArrayList<>();
+
             for (GoodsCollection goodsCollection: goodsCollections){
                 goodsIdList.add(goodsCollection.getGoodsId());
             }
 
             //发给GoodsService查询商品
-            List<GoodsList> myCollectionGoodsList = goodsMapper.selectGoodsListByGoodsIdList(goodsIdList);
-            if (myCollectionGoodsList.size()!=0){
-                return myCollectionGoodsList;
+            if (goodsIdList!=null && goodsIdList.size()!=0) {
+                List<GoodsList> myCollectionGoodsList = goodsMapper.selectGoodsListByGoodsIdList(goodsIdList);
+                if (myCollectionGoodsList != null && myCollectionGoodsList.size() != 0) {
+                    return myCollectionGoodsList;
+                }
             }
         }
         return null;

@@ -9,6 +9,7 @@ import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -62,6 +63,7 @@ public class DaTaoKeHttpUtils {
             sb.append(entry.getValue());
             sb.append("&");
         });
+
         getUrl = getUrl.contains("?") ? getUrl : getUrl + "?";
         return doGet(getUrl + sb.toString());
     }

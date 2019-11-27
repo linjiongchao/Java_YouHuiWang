@@ -36,8 +36,9 @@ public class GoodsAction extends MyAction implements ModelDriven<Goods> {
     @Autowired
     private GoodsService goodsService;
 
-
+    //springboot+struts2 默认请求被struts2拦截 无法开启文档  需要使用SpringMvc注解帮助开启文档
     @GetMapping(value="goods/selectGoodsList.action")
+
     @ApiOperation(value = "查询商品列表",notes = "通过Goods参数获取Goods列表")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageNum", value = "页数", dataType = "int", defaultValue = "1", paramType = "query"),

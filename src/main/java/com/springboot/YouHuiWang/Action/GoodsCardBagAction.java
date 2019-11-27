@@ -91,7 +91,6 @@ public class GoodsCardBagAction extends MyAction implements ModelDriven<GoodsCar
     @ApiOperation(value = "我的卡包",notes = "")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "userId", dataType = "int", value = "用户ID", paramType = "query"),
-            @ApiImplicitParam(name = "goodsId", dataType = "int", value = "商品ID", paramType = "query")
     })
     public String myCardBag(){
         List<GoodsList> myCardBagGoodsList = goodsCardBagService.selectAllCardBag(goodsCardBag.getUserId());
