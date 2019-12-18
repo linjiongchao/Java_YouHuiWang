@@ -68,8 +68,12 @@ public class YouHuiWangApplicationTests {
 
     @Test
     public void pullGoodsByTime() {
-        int totalSize = goodsService.pullGoodsByTimeToDB("2019-10-17 16:00:00");
-        System.out.println("total：" + totalSize);
+//        int totalSize = goodsService.pullGoodsByTimeToDB("2019-10-17 16:00:00");
+//        System.out.println("total：" + totalSize);
+
+
+        System.out.println(        DaTaoKeApi.pullGoodsByTime("1","2019-10-17 16:00:00"));
+
     }
 
 
@@ -93,30 +97,8 @@ public class YouHuiWangApplicationTests {
 
     @Test
     public void getGoodsList() {
-        Goods goods = new Goods();
-        goods.setTitle("男士");
-        //goods.setId(22753038);
-        //
-        List list = new ArrayList();
-        list.add(8472);
 
-        //二级分类查询 屏蔽以及目录
-        //goods.setSubcid(list);
-
-
-        //优惠后价格排序 -1 降序 0 升序
-        //goods.setActualPrice(0F);
-
-        //30天效率排序 -1 降序 0 升序
-        //goods.setMonthSales(0);
-
-        //领卷数排序 人气排序 -1 降序 0 升序
-        goods.setCouponReceiveNum(-1);
-
-        List goodsList = goodsService.selectGoodsList(goods);
-        System.out.println("goodsList:" + goodsList);
-        System.out.println(goods);
-        System.out.println("goodsSize:" + goodsList.size());
+        System.out.println("getGoodsList:" + DaTaoKeApi.getGoodsList("1"));
     }
 
 

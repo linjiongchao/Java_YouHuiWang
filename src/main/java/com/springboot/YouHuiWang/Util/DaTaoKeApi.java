@@ -18,6 +18,8 @@ public class DaTaoKeApi {
 
     private static int timing; //定时任务 定时时间
 
+    private final static String GET_GOODS_LIST_VERSION = "v1.2.0";
+
 
     /**
      * 添加Version page等信息
@@ -59,6 +61,7 @@ public class DaTaoKeApi {
      */
     public static String getGoodsList(String pageId) {
         TreeMap<String, String> map = putInfoPre(pageId);
+        map.put("version",GET_GOODS_LIST_VERSION);
         map.putAll(putInfoAfter(map));
         return DaTaoKeHttpUtils.sendGet(host + "goods/get-goods-list", map);
     }
@@ -73,6 +76,7 @@ public class DaTaoKeApi {
 
         TreeMap<String, String> map = putInfoPre(pageId);
         map.put("startTime", startTime);
+        map.put("version", GET_GOODS_LIST_VERSION);
         // map.put("endTime",endTime);
         map.putAll(putInfoAfter(map));
 

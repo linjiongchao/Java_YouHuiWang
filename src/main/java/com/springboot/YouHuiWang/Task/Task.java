@@ -85,6 +85,24 @@ public class Task {
     }
 
     /**
+     * 24小时全部更新一次
+     */
+    @Scheduled(initialDelay = 0, fixedDelay = 1000 * 60 * 60 * 24)
+    public void getAllGoodsList(){
+        long time = System.currentTimeMillis();
+
+        Date date = new Date(time);
+
+        String startTime = simpleDateFormat.format(date);
+        System.out.println("首次添加数据库商品开始时间:" + startTime);
+
+        int totalSize = goodsService.getGoodsListToDB();
+
+        System.out.println("首次添加数据库商品开始时间:" + simpleDateFormat.format(new Date()));
+        System.out.println("首次添加数据库条数:" + totalSize);
+    }
+
+    /**
      * 一小时更新一次
      */
     @Scheduled(initialDelay = 0, fixedDelay = 1000 * 60 * 60)
@@ -100,7 +118,6 @@ public class Task {
 
         System.out.println("删除数据库失效商品条数:" + simpleDateFormat.format(new Date()));
         System.out.println("删除数据库失效商品开始时间:" + totalSize);
-
 
     }
 
